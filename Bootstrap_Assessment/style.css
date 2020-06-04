@@ -1,0 +1,31 @@
+body {
+  background-color: #79b9c6;
+}
+
+.navbar {
+  color: white;
+  font-weight: bolder;
+  font-size:36px;
+}
+
+.jumbotron {
+  text-transform: uppercase;
+  background: #79b9c6;
+}
+h1 {
+  color: white;
+  font-size: 150px;
+  line-height: 225px;
+}
+
+
+@media screen and (max-width: 1250px) {
+  .navbar {
+    font-size:24px
+  }
+
+  h1 {
+    font-size: 100px;
+    line-height: 150px;
+  }
+}
