@@ -24,9 +24,19 @@ body {
     border: 3px solid #dddddd
 }
 
-img {
-    margin: 0 20px 20px 0;
-    float: none;
+.img-thumbnail {
+    background-color: #cccccc;
+}
+.img-text {
+    z-index: 1;
+    position: absolute;
+    bottom: 40px;
+    background-color: yellow;
+    margin:auto
+  }
+
+.spacer {
+    height:116px;
 }
 
 .card-header {
@@ -34,16 +44,39 @@ img {
     background: #4aaaa5;
 }
 
-.card-body {
+.footer-body {
     background: #666666;
     color: #777777;
 }
 
 .head {
-    font-family: 'Georgia', Times, Times New Roman, serif;
+    font-family: 'Georgia', Times, 'Times New Roman', serif;
     font-weight: bold;
 }
 
+.minimize {
+    height: 0;
+    padding: 0;
+}
+
+.text-block {
+    text-align: center;
+    position: absolute;
+    bottom: 30px;
+    background: #4aaaa5;
+    width: 100%;
+    padding: 5px;
+    line-height: 48px;
+    font-size: 24px;
+    color: white;
+}
+
+@media screen and (max-width: 992px) {
+    .text-block{
+        font-size: 16px;
+        line-height: unset;
+    }
+}
 @media screen and (max-width: 576px) {
     .navbar-brand {
         line-height: 30px;
