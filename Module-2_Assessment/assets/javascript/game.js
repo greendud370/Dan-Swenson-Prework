@@ -1,12 +1,18 @@
 //Set of variables and Lists
-let wordList = ['mouse','frog','dog','cat','bobcat'];
+let wordList = ['yeast','flour','water','milk','cream','sugar','vanilla','salt','eggs','butter','frosting','sprinkles'];
 let n = 0;
+let w=0;
 let wrong = 15;
+let blankword = [];
+let guessList = []
 let keyword = wordList[n];
 let guessword = document.querySelector('#word');
 let fails = document.querySelector('#fails');
 let wrguess = document.querySelector('#guess');
 let success = document.querySelector('#wins');
+let kytxt = document.querySelector('#keytext');
+let pageimg = document.querySelector('#image');
+
 
  //Build word for display
 const buildWord = function() {
@@ -15,9 +21,9 @@ const buildWord = function() {
         word += `${blankword[i]} `;
     }
     guessword.innerText = word;
-    fails.innerText = `You have ${wrong} chances left.`;
-    wrguess.innerText = guessList;
-    success.innerText = `You have completed ${n}`;
+    fails.innerHTML = `You have <strong>${wrong}</strong> chances left.`;
+    wrguess.innerHTML = `You have already guessed: <br> ${guessList}`;
+    success.innerText = `You have found ${w}`;
 
 }
 
@@ -38,14 +44,17 @@ const wordcheck = function(keyword) {
 //Reset for New Word
 //***Have something else step for a different word***
 const reset = function(n) {
+    document.addEventListener('keyup',checkLetter);
     blankword = []
     guessList = []
+    keyword = wordList[n]
+    kytxt.innerText = 'Press any key to get started!'
     if (n<wordList.length) {
         for (i in wordList[n]) {
             blankword.push('_');
         }
         buildWord();
-        wrong=15;
+        
     } else {
         alert('Thanks for Playing!')
     }
@@ -54,14 +63,36 @@ const reset = function(n) {
 //Replace Letting and Build
 const replace = function(i,L) {
     blankword[i] = L;
+    console.log(blankword)
     buildWord();
 }
 
 //Adds wrong guess to list
 const wrongGuess = function(letter){
-    guessList.push(`${letter} `);
+    if (guessList.includes(`${letter} `) === false){
+        guessList.push(`${letter} `);
+        if (wrong > 0 ) {
+            wrong -= 1
+        }
+    } if (wrong === 0) {
+        n += 1;
+        kytxt.innerHTML = `<p style="color:red;">Oh no! You couldn't find the ingredient. Press Enter to continue!</p>`
+        document.removeEventListener('keyup',checkLetter);
+        document.addEventListener('keydown',winReset)
+    }
+
 }
 
+//Reset after a word is found
+const winReset = function() {
+    pageimg.innerHTML = `<img src='assets/images/${keyword}.jpg'>`
+    wrong=15;
+    if (event.keyCode === 13) {
+        document.removeEventListener('keydown', winReset);
+        
+        reset(n);
+    }
+}
 //Checks Letter and replaces as needed. Also checks word.
 const checkLetter = function(event) {
 
@@ -70,11 +101,10 @@ const checkLetter = function(event) {
 
         //Counter to see if its in the word
         let ck = 0
-        keyword = wordList[n]
+        
 
         //Iterating through list to check if letter is in the word
         for (i in keyword) {
-            console.log(i);
             if (event.key === keyword[i]) {
                 replace(i,event.key); 
             } else {
@@ -82,20 +112,21 @@ const checkLetter = function(event) {
             }
         }
 
-        //Changing amount of tries and checking if word is finished.
+        //logic for a wrong letter
         if (ck === keyword.length) {
-            wrong -= 1;
             wrongGuess(event.key);
             buildWord();
         }
+
+        //logic if word is finished
         if (wordcheck(keyword)) {
-            alert(`Yay! The word is ${keyword}!`)
+            w += 1
             n += 1
-            
-            reset(n);
+            kytxt.innerHTML = `<p style="color:green;">Yay! Press Enter to continue!</p>`
+            document.addEventListener('keydown',winReset);
         } 
     }
 }
 
-document.addEventListener('keyup',checkLetter);
-document.addEventListener('pageshow',reset(n))
+//document.addEventListener('keyup',checkLetter);
+document.addEventListener('pageshow',reset(n));
