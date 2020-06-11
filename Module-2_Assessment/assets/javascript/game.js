@@ -24,7 +24,6 @@ const buildWord = function() {
     fails.innerHTML = `You have <strong>${wrong}</strong> chances left.`;
     wrguess.innerHTML = `You have already guessed: <br> ${guessList}`;
     success.innerText = `You have found ${w}`;
-
 }
 
 //Checks if word is correct
@@ -38,7 +37,6 @@ const wordcheck = function(keyword) {
     } else {
         return false
     }
-
 }
 
 //Reset for New Word
@@ -77,14 +75,13 @@ const wrongGuess = function(letter){
     } if (wrong === 0) {
         n += 1;
         kytxt.innerHTML = `<p style="color:red;">Oh no! You couldn't find the ingredient. Press Enter to continue!</p>`
-        document.removeEventListener('keyup',checkLetter);
         document.addEventListener('keydown',winReset)
     }
 }
 
 //Reset after a word is found
 const winReset = function() {
-    pageimg.innerHTML = `<img src='assets/images/${keyword}.jpg'>`
+    document.removeEventListener('keyup',checkLetter);
     wrong=15;
     if (event.keyCode === 13) {
         document.removeEventListener('keydown', winReset);
@@ -92,6 +89,7 @@ const winReset = function() {
         reset(n);
     }
 }
+
 //Checks Letter and replaces as needed. Also checks word.
 const checkLetter = function(event) {
 
@@ -101,7 +99,6 @@ const checkLetter = function(event) {
         //Counter to see if its in the word
         let ck = 0
         
-
         //Iterating through list to check if letter is in the word
         for (i in keyword) {
             if (event.key === keyword[i]) {
@@ -122,10 +119,10 @@ const checkLetter = function(event) {
             w += 1
             n += 1
             kytxt.innerHTML = `<p style="color:green;">Yay! Press Enter to continue!</p>`
+            pageimg.innerHTML = `<img class="img-thumbnail m-1" src='assets/images/${keyword}.jpg'>`
             document.addEventListener('keydown',winReset);
         } 
     }
 }
 
-//document.addEventListener('keyup',checkLetter);
 document.addEventListener('pageshow',reset(n));

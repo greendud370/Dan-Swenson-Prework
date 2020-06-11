@@ -1,7 +1,18 @@
 .jumbotron {
     max-width: 960px;
+    border-radius: 15px;
+    border-width: 5px;
 }
 
 body {
     background-image: url('../images/Wood-Background.jpg');
+}
+
+.container {
+    max-width:700px;
+    border-radius: 15px;
+}
+
+.img-thumbnail {
+    background-color: #AEADA8;
 }
