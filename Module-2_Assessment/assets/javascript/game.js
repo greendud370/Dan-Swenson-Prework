@@ -80,7 +80,6 @@ const wrongGuess = function(letter){
         document.removeEventListener('keyup',checkLetter);
         document.addEventListener('keydown',winReset)
     }
-
 }
 
 //Reset after a word is found
