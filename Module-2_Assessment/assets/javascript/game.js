@@ -54,7 +54,13 @@ const reset = function(n) {
         buildWord();
         
     } else {
-        alert('Thanks for Playing!')
+        
+        //Add stuff about amount found -> cake pic if all, unfinished cake if not 
+        if (this.win === 12) {
+            pageimg.innerHTML = `<img class="img-thumbnail m-1" src='assets/images/cake.jpg'><h2 style='color:green;'> You made the cake! Thanks for playing!</h2>`
+        } else {
+            pageimg.innerHTML = `<img class="img-thumbnail m-1" src='assets/images/cakefail.jpg'><h2 style='color:red;'> You missed a few ingredients, Try again and see if you can find them all!</h2>`
+        }
     }
 }
 
