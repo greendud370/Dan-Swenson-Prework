@@ -58,13 +58,6 @@ const reset = function(n) {
     }
 }
 
-//Replace Letting and Build
-const replace = function(i,L) {
-    blankword[i] = L;
-    console.log(blankword)
-    buildWord();
-}
-
 //Adds wrong guess to list
 const wrongGuess = function(letter){
     if (guessList.includes(`${letter} `) === false){
@@ -102,7 +95,8 @@ const checkLetter = function(event) {
         //Iterating through list to check if letter is in the word
         for (i in keyword) {
             if (event.key === keyword[i]) {
-                replace(i,event.key); 
+                blankword[i] = event.key;
+                buildWord();
             } else {
                 ck+=1
             }
